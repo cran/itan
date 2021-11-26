@@ -2,44 +2,53 @@
 % Please edit documentation in R/itan.R
 \name{calcularNotas}
 \alias{calcularNotas}
-\title{C\enc{á}{a}lculo de notas.}
+\title{Cálculo de notas}
 \usage{
-calcularNotas(puntajes, pjeMax = max(puntajes), notaMin = 1, notaMax = 7,
-  notaAprob = 4, prema = 0.6)
+calcularNotas(
+  puntajes,
+  pjeMax = max(puntajes),
+  notaMin = 1,
+  notaMax = 7,
+  notaAprobacion = 4,
+  prema = 0.6
+)
 }
 \arguments{
-\item{puntajes}{Un vector con los puntajes obtenidos por los estudiantes
+\item{puntajes}{Un data frame con los puntajes obtenidos por los estudiantes
 en la prueba.}
 
-\item{pjeMax}{El puntaje m\enc{á}{a}ximo posible de alcanzar en la prueba.}
+\item{pjeMax}{El puntaje máximo posible de alcanzar en la prueba.}
 
-\item{notaMin}{La nota m\enc{í}{i}nima otorgada al estudiante sin puntaje.}
+\item{notaMin}{La nota mínima otorgada al estudiante sin puntaje.}
 
-\item{notaMax}{La nota m\enc{á}{a}xima otorgada al estudiante con mejor puntaje.}
+\item{notaMax}{La nota máxima otorgada al estudiante con mejor puntaje.}
 
-\item{notaAprob}{La nota necesaria para aprobar la prueba.}
+\item{notaAprobacion}{La nota necesaria para aprobar la prueba.}
 
-\item{prema}{Porcentaje de rendimiento m\enc{í}{i}nimo aceptable. Corresponde
-a la proporci\enc{ó}{o}n del puntaje m\enc{á}{a}ximo necesario para obtener
-la nota de aprobaci\enc{ó}{o} en la prueba.}
+\item{prema}{Porcentaje de rendimiento mínimo aceptable. Corresponde
+a la proporción del puntaje máximo necesario para obtener
+la nota de aprobación en la prueba.}
 }
 \value{
-Un vector con las notas obtenidas por los estudiantes en la prueba.
+Un data frame con las notas obtenidas por los estudiantes en la prueba.
 }
 \description{
-Calcula la nota obtenida por cada estudiante en funci\enc{ó}{o}n de
-su puntaje alcanzado en la prueba seg\enc{ú}{u}n el sistema de calificaci\enc{ó}{o}n
-utilizado en Chile.
+Calcula la nota obtenida por cada estudiante en función de
+su puntaje alcanzado en la prueba. Se utiliza el \href{https://es.wikipedia.org/wiki/Calificaciones_escolares_en_Chile}{sistema de calificación
+utilizado en Chile}.
 }
 \examples{
-data(datos)
-data(clave)
-respuestas <- subset(datos, select = -id)
-puntajes <- calcularPuntajes(corregirItems(respuestas, clave))
-notas <- calcularNotas(puntajes)
-cbind(datos$id, pje=puntajes, nota=notas)
+respuestas <- datos[,-1]
+respuestasCorregidas <- corregirRespuestas(respuestas, clave)
+puntaje <- calcularPuntajes(respuestasCorregidas)
+nota <- calcularNotas(puntaje)
+cbind(id=datos[1], puntaje, nota)
 
 }
+\references{
+\href{https://escaladenotas.cl/?nmin=1.0&nmax=7.0&napr=4.0&exig=60.0&pmax=100.0&explicacion=1}{Explicación de fórmula general y cálculo específico}
+}
 \seealso{
-\code{\link{calcularPuntajes}} y \code{\link{corregirItems}}.
+\code{\link{corregirRespuestas}}, \code{\link{calcularPuntajes}},
+\code{\link{datos}} y \code{\link{clave}}.
 }

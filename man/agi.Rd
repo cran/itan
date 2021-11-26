@@ -2,49 +2,47 @@
 % Please edit documentation in R/itan.R
 \name{agi}
 \alias{agi}
-\title{An\enc{á}{a}lisis gr\enc{á}{a}fico de \enc{í}{i}tems.}
+\title{Análisis gráfico de ítems.}
 \usage{
-agi(respuestas, clave, nGrupos = 4, nOpciones = 4)
+agi(respuestas, clave, alternativas, nGrupos = 4, digitos = 2)
 }
 \arguments{
-\item{respuestas}{Una matriz con las alternativas seleccionada por los estudiantes
-a cada \enc{í}{i}tem de la prueba.}
+\item{respuestas}{Un data frame con las alternativas seleccionadas por los estudiantes
+en cada ítem de la prueba.}
 
-\item{clave}{Una matriz con la alternativa correcta para cada \enc{í}{i}tem.}
+\item{clave}{Un data frame con las alternativas correctas para cada ítem.}
 
-\item{nGrupos}{N\enc{ú}{u}mero de grupos en los que se categorizar\enc{á}{a}n los puntajes.}
+\item{alternativas}{Un vector con las alternativas posibles para cada ítem.}
 
-\item{nOpciones}{N\enc{ú}{u}mero de alternativas posibles para cada \enc{í}{i}tem.}
+\item{nGrupos}{Número de grupos en los que se categorizarán los estudiantes
+según el puntaje obtenido en la prueba.}
+
+\item{digitos}{La cantidad de dígitos significativos que tendrá el resultado.}
 }
 \value{
-Una matriz con la correlaci\enc{ó}{o}n biserial puntual para cada \enc{í}{i}tem y para cada
-alternativa.
+Una lista con dos listas en su interior. La primera sublista contiene
+a su vez otra lista con los los datos utilizados en los gráficos para cada ítem.
+La segunda sublista contiene una lista con los gráficos de cada ítem.
 }
 \description{
-El an\enc{á}{a}lisis gr\enc{á}{a}fico de \enc{í}{i}tems permite visualizar
-las alternativas que eligen los estudiantes seg\enc{ú}{u}n su desempe\enc{ñ}{n}o
-general en la prueba. A partir de una matriz de respuestas y de un vector de puntajes
-se puede agrupar a los estudiantes seg\enc{ú}{u}n su puntaje y calcular la
-proporci\enc{ó}{o}n en que cada grupo seleccion\enc{ó}{o} cada alternativa.
-Esta funci\enc{ó}{o}n devuelve un gr\enc{á}{a}fico por cada \enc{í}{i}tem que relaciona
-la frecuencia de selecci\enc{ó}{o}n de cada alternatica con los grupos de puntajes.
-Requiere los paquetes \pkg{\link{ggplot2}} y \pkg{\link{reshape}}.
+El análisis gráfico de ítems (agi) permite visualizar las alternativas que eligen
+los estudiantes según su desempeño general en la prueba. El agi proporciona
+información esencial y fácilmente interpretable acerca de características técnicas
+del ítem tales como su dificultad y poder de discriminación.
+}
+\details{
+\if{html}{\figure{i01.jpeg}{options: width=500 alt="Figura: Análisis gráfico ítem 01."}}
 }
 \examples{
-data(datos)
-data(clave)
-respuestas <- subset(datos, select=-id)
-plots <- agi(respuestas, clave, nGrupos=ncol(respuestas)/2)
-plots[[1]][[1]]
-plots[[2]][[1]]
+respuestas <- datos[,-1]
+alternativas <- LETTERS[1:5]
+plots <- agi(respuestas, clave, alternativas)
+plots$datos$i01
+plots$plots$i01
 
 }
 \references{
-Ensenada, B. (2010). Manual para el an\enc{á}{a}lisis gr\enc{á}{a}fico
-de \enc{í}{i}tems. Baja California. Recuperado de \url{http://www.educacionbc.edu.mx/departamentos/evaluacion/eacademicos/archivos/jornadasBC/MANUAL_PAGI.pdf}
-}
-\seealso{
-\code{\link{corregirItems}}, \code{\link{analizarDistractores}},
-\code{\link{frecuenciaDistractores}}, \code{\link{analizarItems}}, \code{\link{pBis}} y
-\code{\link{calcularPuntajes}}
+Guadalupe de los Santos (2010). Manual para el análisis gráfico de ítems.
+Universidad Autónoma de Baja California. Recuperado de
+\url{http://www.educacionbc.edu.mx/departamentos/evaluacion/eacademicos/archivos/jornadasBC/MANUAL_PAGI.pdf}
 }

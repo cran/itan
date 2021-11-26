@@ -2,46 +2,40 @@
 % Please edit documentation in R/itan.R
 \name{analizarDistractores}
 \alias{analizarDistractores}
-\title{An\enc{á}{a}lisis de distractores.}
+\title{Análisis de distractores}
 \usage{
-analizarDistractores(respuestas, clave, nOpciones = 4, proporcion = 0.27,
-  frecuencia = TRUE, digitos = 2)
+analizarDistractores(respuestas, clave, alternativas, proporcion = 0.25)
 }
 \arguments{
-\item{respuestas}{Una matriz con las alternativas seleccionadas por los estudiantes
-en cada \enc{í}{i}tem.}
+\item{respuestas}{Una matriz con las alternativas seleccionadas por los
+estudiantes en cada ítem.}
 
-\item{clave}{Una matriz con las alternativas correctas para cada \enc{í}{i}tem.}
+\item{clave}{Un data frame con las alternativas correctas para cada ítem.}
 
-\item{nOpciones}{La cantidad de alternativas posibles para cada \enc{í}{i}tem.}
+\item{alternativas}{Un vector con las alternativas posibles para cada ítem.}
 
-\item{proporcion}{Proporción del total de estudiantes que contituyen los grupos superior e inferior.}
-
-\item{frecuencia}{Un valor l\enc{ó}{o}gico para determinar si la
-informaci\enc{ó}{o}n se presenta como frecuencia (TRUE) o proporci\enc{ó}{o}n (FALSE).}
-
-\item{digitos}{La cantidad de d\enc{í}{i}gitos significativos que tendr\enc{á}{a} el resultado.}
+\item{proporcion}{Proporción del total de estudiantes que constituyen los
+grupos superior e inferior.}
 }
 \value{
-Una lista en la cual cada elemento corresponde a un \enc{í}{i}tem.
-Para cada \enc{í}{i}tem se calcula la frecuencia o proporci\enc{ó}{o}n de las
-alternativas seleccionadas por el grupo superior y por el grupo inferior de estudiantes.
+Una lista en la cual cada elemento corresponde a un ítem. Para cada
+ítem se calcula la frecuencia o proporción de las alternativas seleccionadas
+por el grupo superior y por el grupo inferior de estudiantes.
 }
 \description{
-Calcula la frecuencia o proporci\enc{ó}{o}n de las alternativas
-seleccionadas por el grupo superior e inferior en cada \enc{í}{i}tem.
+Calcula la frecuencia o proporción de las alternativas seleccionadas por el
+grupo superior e inferior de estudiantes en cada ítem.
 }
 \examples{
-data(datos)
-data(clave)
-respuestas <- subset(datos, select = -id )
-analizarDistractores(respuestas, clave)
+respuestas <- datos[,-1]
+alternativas <- LETTERS[1:5]
+analizarDistractores(respuestas, clave, alternativas)
 
 }
 \references{
-Morales, P. (2009). An\enc{á}{a}lisis de \enc{í}{i}tem en las pruebas objetivas.
+Morales, P. (2009). Análisis de ítem en las pruebas objetivas.
 Madrid. Recuperado de \url{https://educrea.cl/wp-content/uploads/2014/11/19-nov-analisis-de-items-en-las-pruebas-objetivas.pdf}
 }
 \seealso{
-\code{\link{frecuenciaDistractores}} y \code{\link{analizarItems}}.
+\code{\link{calcularFrecuenciaDistractores}}, \code{\link{datos}} y \code{\link{clave}}.
 }

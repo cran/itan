@@ -2,40 +2,44 @@
 % Please edit documentation in R/itan.R
 \name{pBis}
 \alias{pBis}
-\title{Correlaci\enc{ó}{o}n biserial puntual.}
+\title{Correlación biserial puntual.}
 \usage{
-pBis(respuestas, clave, correccionPje = TRUE, nOpciones = 4, digitos = 2)
+pBis(respuestas, clave, alternativas, correccionPje = TRUE, digitos = 2)
 }
 \arguments{
-\item{respuestas}{Una matriz con las alternativas seleccionadas por los estudiantes
-a cada \enc{í}{i}tem de la prueba.}
+\item{respuestas}{Un data frame con las alternativas seleccionadas por los
+estudiantes a cada ítem de la prueba.}
 
-\item{clave}{Una hoja de datos con la alternativa correcta para cada \enc{í}{i}tem.}
+\item{clave}{Un data frame con la alternativa correcta para cada ítem.}
 
-\item{correccionPje}{Un valor l\enc{ó}{o}gico para usar o no la correcci\enc{ó}{o}n de puntaje.
-La correcci\enc{ó}{o}n de puntaje consiste en restar del puntaje total obtenido en la prueba
-el punto obtenido por el \enc{í}{i}tem analizado.}
+\item{alternativas}{Un vector con las alternativas posibles para cada ítem.}
 
-\item{nOpciones}{La cantidad de alternativas posibles para cada \enc{í}{i}tem.}
+\item{correccionPje}{Un valor lógico para usar o no la corrección de puntaje.
+La corrección de puntaje consiste en restar del puntaje total el punto obtenido
+por el ítem analizado.}
 
-\item{digitos}{La cantidad de d\enc{í}{i}gitos significativos que tendr\enc{á}{a} el resultado.}
+\item{digitos}{La cantidad de dígitos significativos que tendrá el resultado.}
 }
 \value{
-Una hoja de datos con la correlaci\enc{ó}{o}n biserial puntual de las alternativas
-y la alternativa correcta para cada \enc{í}{i}tems.
+Un data frame con la correlación biserial puntual para cada alternativa
+en cada ítem.
 }
 \description{
-Calcula la correlaci\enc{ó}{o}n biserial puntual para cada alternativa de cada \enc{í}{i}tem con respecto
-al puntaje obtenido en la prueba.
+Calcula la \href{https://sites.google.com/site/tecnicasdeinvestigaciond38/estadisticas-no-parametricas/3-4-coeficiente-biseral-de-punto}{correlación biserial puntual}
+para cada alternativa de cada ítem con respecto al puntaje obtenido en la prueba.
 }
 \examples{
-data(datos)
-data(clave)
-respuestas <- subset(datos, select = -id)
-pBis(respuestas, clave)
+respuestas <- datos[, -1]
+alternativas <- LETTERS[1:5]
+pBis(respuestas, clave, alternativas)
 
 }
+\references{
+Attorresi, H, Galibert, M. y Aguerri, M. (1999). Valoración de los
+ejercicios en las pruebas de rendimiento escolar. Educación Matemática. Vol. 11 No. 3, pp. 104-119.
+Recuperado de \url{http://www.revista-educacion-matematica.org.mx/descargas/Vol11/3/10Attorresi.pdf}
+}
 \seealso{
-\code{\link{analizarDistractores}}, \code{\link{frecuenciaDistractores}}
-y \code{\link{analizarItems}}.
+\code{\link{analizarDistractores}}, \code{\link{calcularFrecuenciaDistractores}}
+\code{\link{datos}} y \code{\link{clave}}.
 }

@@ -2,28 +2,27 @@
 % Please edit documentation in R/itan.R
 \name{calcularPuntajes}
 \alias{calcularPuntajes}
-\title{C\enc{á}{a}lculo de puntajes.}
+\title{Cálculo de puntajes}
 \usage{
-calcularPuntajes(respCorregidas)
+calcularPuntajes(respuestas)
 }
 \arguments{
-\item{respCorregidas}{Una matriz con las respuestas de los estudiantes a cada \enc{í}{i}tem
-en forma binaria.}
+\item{respuestas}{Un data frame con el puntaje obtenido por los estudiantes
+en cada ítem.}
 }
 \value{
-Un vector con los puntajes obtenidos por los estudiantes.
+Un vector con el puntaje total obtenido en la pruebas por cada estudiante.
 }
 \description{
 Calcula el puntaje total obtenido en la prueba por cada estudiante.
 }
 \examples{
-data(datos)
-data(clave)
-respuestas <- subset(datos, select = -id )
-puntajes <- calcularPuntajes(corregirItems(respuestas, clave))
-cbind(respuestas, pje=puntajes)
+respuestas <- datos[,-1]
+respuestasCorregidas <- corregirRespuestas(respuestas, clave)
+puntajes <- calcularPuntajes(respuestasCorregidas)
+cbind(id=datos[1], puntaje=puntajes)
 
 }
 \seealso{
-\code{\link{calcularNotas}} y \code{\link{corregirItems}}.
+\code{\link{corregirRespuestas}}, \code{\link{datos}} y \code{\link{clave}}.
 }
