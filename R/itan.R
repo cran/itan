@@ -395,7 +395,14 @@ pBis <- function(respuestas, clave, alternativas, correccionPje=TRUE, digitos=2)
 #' información esencial y fácilmente interpretable acerca de características técnicas
 #' del ítem tales como su dificultad y poder de discriminación.
 #'
-#' \if{html}{\figure{i01.jpeg}{options: width=500 alt="Figura: Análisis gráfico ítem 01."}}
+#' Los estudiantes se clasifican habitualmente en 4 categorías según su puntaje
+#' alcanzado en la prueba. La proporción de estudiantes de cada grupo que seleccionó
+#' una alternativa determinada se muestra en el eje Y. Por ejemplo, en la siguiente
+#' figura se puede observar que todos los estudiantes del grupo 4 (mejor desempeño)
+#' seleccionaron la alternativa correcta D, mientras que el 25% de los estudiantes
+#' del grupo 1 (peor desempeño) seleccionaron esta opción.
+#'
+#' \if{html}{\figure{i50.jpeg}{options: width=500 alt="Figura: Análisis gráfico ítem 01."}}
 #'
 #' @param respuestas Un data frame con las alternativas seleccionadas por los estudiantes
 #' en cada ítem de la prueba.
@@ -411,18 +418,24 @@ pBis <- function(respuestas, clave, alternativas, correccionPje=TRUE, digitos=2)
 #'
 #' @references Guadalupe de los Santos (2010). Manual para el análisis gráfico de ítems.
 #' Universidad Autónoma de Baja California. Recuperado de
-#' \url{http://www.educacionbc.edu.mx/departamentos/evaluacion/eacademicos/archivos/jornadasBC/MANUAL_PAGI.pdf}
+#' \href{http://www.educacionbc.edu.mx/departamentos/evaluacion/eacademicos/archivos/jornadasBC/MANUAL_PAGI.pdf}{manual_pagi.pdf}
 #'
 #' @examples
 #' respuestas <- datos[,-1]
 #' alternativas <- LETTERS[1:5]
-#' plots <- agi(respuestas, clave, alternativas)
-#' plots$datos$i01
-#' plots$plots$i01
 #'
-#' @export
+#' dataplots <- agi(respuestas, clave, alternativas)
+#'
+#' dataplots$datos$i01
+#' dataplots$datos$i25
+#' dataplots$datos$i50
+#'
+#' dataplots$plots$i01
+#' dataplots$plots$i25
+#' dataplots$plots$i50
 #'
 #' @import reshape ggplot2
+#' @export
 #'
 agi <- function(respuestas, clave, alternativas, nGrupos=4, digitos=2) {
 
@@ -454,29 +467,31 @@ agi <- function(respuestas, clave, alternativas, nGrupos=4, digitos=2) {
   names(datos) <- colnames(respuestas)
   names(plots) <- colnames(respuestas)
 
-  tmp <- matrix(nrow = nGrupos, ncol = nOpciones)
-  colnames(tmp) <- alternativas
-  rownames(tmp) <- c(1:nGrupos)
+  props <- matrix(nrow = nGrupos, ncol = nOpciones)
+  rownames(props) <- c(1:nGrupos)
 
   for (i in 1:nItems){
 
     for(g in 1:nGrupos){
       for(o in 1:nOpciones){
-        tmp[g,o] <- length(which(respuestas[sgIndexes[[g]],i] == alternativas[o])) / length(sgIndexes[[g]])
+        props[g,o] <- length(which(respuestas[sgIndexes[[g]],i] == alternativas[o])) / length(sgIndexes[[g]])
       }
     }
 
-    tmp <- as.data.frame(tmp)
-    names(tmp) <- ifelse(alternativas == clave[,i],
-                         paste(c("*"), names(tmp), sep = ""),
-                         names(tmp))
-    datos[[i]] <- cbind(grupo=levels(scoreGroups), round(tmp, digitos))
+    props <- as.data.frame(props)
+    colnames(props) <- alternativas
+    colnames(props) <- ifelse(alternativas == clave[,i],
+                         paste(c("*"), colnames(props), sep = ""),
+                         colnames(props))
 
-    names(tmp) <- ifelse(alternativas == clave[,i],
-                         paste(names(tmp), c("* ("), pBiserial[i,], c(")"), sep = ""),
-                         paste(names(tmp), c("  ("), pBiserial[i,], c(")"), sep = ""))
+    datos[[i]] <- cbind(grupo=levels(scoreGroups), round(props, digitos))
 
-    df <- reshape::melt(data = cbind(tmp,sgMeans), id.vars = "sgMeans")
+    colnames(props) <- alternativas
+    colnames(props) <- ifelse(alternativas == clave[,i],
+                         paste(colnames(props), c("* ("), format(pBiserial[i,], nsmall=2), c(")"), sep = ""),
+                         paste(colnames(props), c("  ("), format(pBiserial[i,], nsmall=2), c(")"), sep = ""))
+
+    df <- reshape::melt(data = cbind(props,sgMeans), id.vars = "sgMeans")
 
     plots[[i]] <- ggplot2::ggplot(df, ggplot2::aes_string(x="sgMeans", y="value", color="variable")) +
       ggplot2::geom_line() +

@@ -1,8 +1,8 @@
-511d945e1da759b99e5bf1cef027764a *DESCRIPTION
+38af1df360adde3b4e5b0f0eff0b8784 *DESCRIPTION
 4564ca0d87c51535ef0147a1ddf42894 *LICENSE
 c87e48dbb3ac045c9d03f8c3f260d27b *NAMESPACE
 261c56251bc947905fe470f7471601bd *R/data.R
-6222f41c2cb3ce739cfd2ae602afe667 *R/itan.R
+700f73204e419eb7a88217d7195b3272 *R/itan.R
 605c2e0a2289115e1f5949170d695c4c *R/utils.R
 80d9a3c6a7f697409a9a7b68ed4a0dc5 *data/clave.rda
 2dedb387d78e115776b23e23e91be00a *data/datos.rda
@@ -14,7 +14,7 @@ e74c2a167dd1e65cb3aa8403b204076a *inst/documentation/morales.pdf
 c1062b34bc47804902ea3b6391a4bbd6 *inst/extdata/clave.csv
 a7728e5d9d26e43c202bda52e09e79fb *inst/extdata/data.R
 f470513d0649157bfde808bcbb1430ca *inst/extdata/datos.csv
-b42401b663b9140c958b7fd2b25eac03 *man/agi.Rd
+605fddc6476e0c56ec249cb23c075a97 *man/agi.Rd
 c0b30f145d84c4425aa4258f37239c4f *man/analizarDistractores.Rd
 0e012fa200f70b428bdc1679cdfecc1c *man/calcularFrecuenciaDistractores.Rd
 08a6adcee7f966e7a0ce5ed14bef3789 *man/calcularIndiceDificultad.Rd
@@ -25,7 +25,7 @@ e3b65369163a456066fe1aa914cc8ecb *man/calcularNotas.Rd
 b9608f91e7508cdbb4e8adb566322e13 *man/corregirRespuestas.Rd
 cc56f464a1d866f31a46a518bc486649 *man/datos.Rd
 30521c001d1730f139758454998e9292 *man/figures/i01.jpeg
-5c96e8734392c75d1a17a5052d715a03 *man/figures/i01.png
+76290cbcff8f9a18beac687521837db7 *man/figures/i50.jpeg
 4068586f22e624a4302f464d20e0c6c7 *man/pBis.Rd
 123073eac5b801710110692792e26527 *tests/testthat.R
 ef3ee5d29ad3ab6cbd1e987b40a5de58 *tests/testthat/test-agi.R
