@@ -17,9 +17,15 @@ obtenerGrupoSuperior <- function(datos, proporcion) {
 
 factorizarRespuestas <- function(respuestas, alternativas) {
   for (i in 1:ncol(respuestas)) {
-    respuestas[,i] <- factor(respuestas[,i], alternativas)
+    respuestas[i] <- factor(respuestas[[i]], alternativas)
   }
   return(respuestas)
+}
+
+dicotomize <- function(x, choice) {
+  output <- ifelse(x==choice, 1, 0)
+  output[is.na(output)] <- 0
+  return(output)
 }
 
 sigma <- function(x) {
